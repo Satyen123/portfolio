@@ -1564,24 +1564,7 @@ body.dark-mode .project-tag {
         padding: 1rem 3%;
     }
 
-    .nav-links {
-        display: none; /* Hide nav links by default */
-        flex-direction: column;
-        width: 100%;
-        position: absolute;
-        top: 80px; /* Below the header */
-        left: 0;
-        background-color: var(--background-dark);
-        box-shadow: 0 10px 20px var(--box-shadow-dark);
-        padding: 1rem 0;
-        transition: max-height 0.3s ease-out;
-        max-height: 0;
-        overflow: hidden;
-    }
-
-    .nav-links.active {
-        max-height: 500px; /* Adjust as needed to show all links */
-    }
+    /* Disabled duplicate mobile menu rules to resolve position clashing */
 
     .nav-links li {
         text-align: center;
@@ -1785,8 +1768,8 @@ input:checked + .slider:before {
   .hamburger {
     display: block;
     cursor: pointer;
-    z-index: 1001;
-    position: absolute;
+    z-index: 1003; /* Positioned above the drawer */
+    position: fixed; /* Keep pinned to top-right corner over drawer */
     top: 1.5rem;
     right: 1.5rem;
   }
@@ -1816,26 +1799,32 @@ input:checked + .slider:before {
     position: fixed;
     top: 0;
     right: -100%;
-    width: 75%;
+    left: auto; /* Reset intermediate absolute layout position */
+    width: 70%;
+    max-width: 260px;
     height: 100vh;
     background-color: var(--background-dark);
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 2rem;
-    padding-top: 80px;
+    padding-top: 100px;
+    padding-bottom: 2rem;
     visibility: hidden;
     opacity: 0;
     transition: right 0.4s ease, opacity 0.4s ease, visibility 0s 0.4s;
-    z-index: 1000;
+    z-index: 1002; /* Overlay above header */
     box-shadow: -5px 0 20px rgba(0, 0, 0, 0.4);
+    overflow-y: auto;
+    overflow-x: hidden;
   }
 
   .nav-links.active {
     right: 0;
     visibility: visible;
     opacity: 1;
+    max-height: none; /* Override intermediate dropdown height cap */
     transition: right 0.4s ease, opacity 0.4s ease, visibility 0s;
   }
 
